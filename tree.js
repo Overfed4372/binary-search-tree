@@ -59,6 +59,38 @@ export default class Tree {
         }
         return findRec(this.root, value);
     }
+    levelOrder (callback=null) {
+        //the root of the tree is initially in the queue
+        const queue = [this.root];
+        const levelOrderArr = [];
+        //duplicating root tree
+        // let tmp = this.root;
+        // recursion
+        const level = (q, node) => {
+            if (q.length === 0) return;
+            levelOrderArr.push(q[0].data);
+            q.shift();
+            if (node.left !== null) q.push(node.left);
+            if (node.right !== null) q.push(node.right);
+            node = q[0];
+            level (q, node);
+        }
+        level(queue, this.root);
+        return levelOrderArr;
+        // 
+        
+        /* iteration 
+        do {
+            levelOrderArr.push(queue[0].data);
+            queue.shift();
+            if (tmp.left !== null) queue.push(tmp.left);
+            if (tmp.right !== null) queue.push(tmp.right);
+            tmp = queue[0];
+        }
+        while (queue.length > 0)
+        */
+        return levelOrderArr;
+    }
     get showTree () {
         return this.root;
     }
@@ -77,11 +109,11 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 const tree = new Tree ([50, 30, 70, 20, 40, 60, 80, 32, 65, 75, 85, 34, 36]);
 // const tree = new Tree ([50, 30, 40, 39.5, 38, 39.51, 70, 20, 40, 60, 80, 32, 65, 75, 85, 34, 36]);
-tree.insert(38);
-tree.insert(39);
-tree.insert(40);
-tree.insert(39.5);
-tree.insert(39.51);
+// tree.insert(38);
+// tree.insert(39);
+// tree.insert(40);
+// tree.insert(39.5);
+// tree.insert(39.51);
 // tree.delete(39.51);
 // tree.delete(39.5);
 // tree.delete(38);
@@ -90,9 +122,10 @@ tree.insert(39.51);
 // tree.delete(50);
 // tree.delete(50);
 // tree.delete(40);
-tree.delete(60);
-tree.delete(39);
+// tree.delete(60);
+// tree.delete(39);
 // console.log(tree.find(36));
-prettyPrint(tree.find(123));
+// prettyPrint(tree.find(123));
+console.log(tree.levelOrder());
 // console.log(tree.showTree);
-// prettyPrint(tree.showTree);
+prettyPrint(tree.showTree);
