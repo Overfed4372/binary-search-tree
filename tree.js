@@ -48,6 +48,17 @@ export default class Tree {
             return minV;
         }
     }
+    find (value) {
+        const findRec = (root, key) => {
+            if (!root) return root;
+            if (key < root.data) {
+                return findRec (root.left, key);
+            } else if (key > root.data) {
+                return findRec (root.right, key);
+            } else if (key === root.data) return root;
+        }
+        return findRec(this.root, value);
+    }
     get showTree () {
         return this.root;
     }
@@ -81,5 +92,7 @@ tree.insert(39.51);
 // tree.delete(40);
 tree.delete(60);
 tree.delete(39);
+// console.log(tree.find(36));
+prettyPrint(tree.find(123));
 // console.log(tree.showTree);
-prettyPrint(tree.showTree);
+// prettyPrint(tree.showTree);
